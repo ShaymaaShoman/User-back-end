@@ -29,6 +29,21 @@ app.post('/users',(request,response)=>{
     response.status(201).send("Create!")
 })
 //PUT
+app.put('/users/:id', (request, response) => {
+    const { id } = request.params;
+    const updatedUserData = request.body; // Assuming you send the updated user data in the request body
+  
+    const findUserIndex = users.findIndex((x) => x.id === id);
+    if (findUserIndex === -1) {
+      response.status(400).send("User not found");
+      return;
+    }
+  
+    // Update the user data
+    users[findUserIndex] = { ...users[findUserIndex], ...updatedUserData };
+  
+    response.status(200).send("User Update Success");
+  });
 //DELETE
 app.delete('/users/:id',(request,response)=>{
 const {id}=request.params
